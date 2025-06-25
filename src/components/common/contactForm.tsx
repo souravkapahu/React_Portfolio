@@ -15,7 +15,7 @@ interface Errors {
 
 interface ContactFormModalProps {
   isOpen: boolean;
-  onClose: () => any;
+  onClose: () => void;
 }
 
 const ContactFormModal: React.FC<ContactFormModalProps> = ({
@@ -55,10 +55,10 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
   };
 
   const handleClose = () => {
-    setForm({ name: "", email: "", message: "" }); // clear form
-    setErrors({}); // clear errors if you're using validation
+    setForm({ name: "", email: "", message: "" });
+    setErrors({});
     setTouched({});
-    onClose(); // call parent close
+    onClose();
   };
 
   const handleChange = (
@@ -94,20 +94,17 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
     const isValid = Object.values(newErrors).every((e) => !e);
     if (!isValid) return;
 
-    // Show toast
-    toast.success("Message sent.");
-
+    toast.success("Message sent successfully!");
     console.log("Form submitted:", form);
-
     handleClose();
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center font-playfair bg-black/60 backdrop-blur-sm transition-all">
+    <div className="fixed inset-0 z-50 flex items-center justify-center font-playfair bg-black/60 backdrop-blur-sm transition-all px-4">
       <div
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-8 relative animate-scaleIn"
+        className="bg-white rounded-2xl shadow-2xl w-[90%] sm:w-full max-w-2xl p-4 sm:p-8 relative animate-scaleIn"
         style={{ maxHeight: "90vh", overflowY: "auto" }}
       >
         <button
@@ -123,7 +120,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <input
                 type="text"
@@ -132,7 +129,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
                 value={form.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={`px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 ${
+                className={`text-sm sm:text-base px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 ${
                   errors.name && touched.name
                     ? "border-red-500 focus:ring-red-500"
                     : "border-gray-300 focus:ring-slate-800"
@@ -153,7 +150,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
                 value={form.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={`px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 ${
+                className={`text-sm sm:text-base px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 ${
                   errors.email && touched.email
                     ? "border-red-500 focus:ring-red-500"
                     : "border-gray-300 focus:ring-slate-800"
@@ -175,7 +172,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
               onChange={handleChange}
               onBlur={handleBlur}
               rows={4}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+              className={`text-sm sm:text-base w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                 errors.message && touched.message
                   ? "border-red-500 focus:ring-red-500"
                   : "border-gray-300 focus:ring-slate-800"
