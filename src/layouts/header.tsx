@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import ContactFormModal from "../components/common/contactForm";
+import images from "../assets/index";
+
+const { resume } = images;
 
 export default function Header() {
   const [activeTab, setActiveTab] = useState("home");
@@ -52,6 +54,10 @@ export default function Header() {
             onClick={() => handleActiveTab("contact")}
           >
             Contact
+          </a>
+
+          <a href={resume} download>
+            Download Resume
           </a>
         </div>
       </div>

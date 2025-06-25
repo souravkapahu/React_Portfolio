@@ -13,6 +13,7 @@ import makan from "./images/makan.svg";
 import linkedln from "./images/linkedln.svg";
 import insta from "./images/insta.png";
 import github from "./images/github.png";
+import resume from "./pdfs/resume.pdf";
 
 export default {
   program,
@@ -30,4 +31,5 @@ export default {
   linkedln,
   insta,
   github,
+  resume,
 };
