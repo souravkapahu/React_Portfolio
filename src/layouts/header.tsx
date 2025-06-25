@@ -7,9 +7,11 @@ const { resume } = images;
 export default function Header() {
   const [activeTab, setActiveTab] = useState("home");
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleActiveTab = (currentTab: string) => {
     setActiveTab(currentTab);
+    setIsMobileMenuOpen(false); // Close menu
 
     if (currentTab === "contact") {
       setIsContactModalOpen(true);
@@ -18,55 +20,92 @@ export default function Header() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full z-50 bg-black/50 backdrop-blur-sm shadow-md transition-all duration-500 animate-slideDown">
-        <div className="flex justify-center items-center text-white font-playfair text-[18px] gap-10 h-14">
-          <a
-            href="#home"
-            className={`${
-              activeTab === "home"
-                ? "underline underline-offset-4 decoration-red-600"
-                : ""
-            }`}
-            onClick={() => handleActiveTab("home")}
-          >
-            Home
-          </a>
+      <div className="fixed top-0 left-0 w-full z-50 bg-black/60 shadow-md backdrop-blur-sm transition-all duration-500">
+        <div className="flex justify-between items-center px-4 md:px-20 h-14 text-white font-playfair">
+          {/* Mobile Hamburger - LEFT side */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="focus:outline-none"
+              aria-label="Toggle Menu"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isMobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
 
-          <a
-            href="#about"
-            className={`${
-              activeTab === "about"
-                ? "underline underline-offset-4 decoration-red-600"
-                : ""
-            }`}
-            onClick={() => handleActiveTab("about")}
-          >
-            About
-          </a>
-
-          <a
-            //   href="#about"
-            className={`${
-              activeTab === "contact"
-                ? "underline underline-offset-4 decoration-red-600"
-                : ""
-            }`}
-            onClick={() => handleActiveTab("contact")}
-          >
-            Contact
-          </a>
-
-          <a href={resume} download>
-            Download Resume
-          </a>
+          {/* Desktop Menu (centered on large screens) */}
+          <div className="hidden md:flex gap-10 text-[18px] mx-auto">
+            {["home", "about", "contact"].map((tab) => (
+              <a
+                key={tab}
+                href={tab !== "contact" ? `#${tab}` : undefined}
+                onClick={() => handleActiveTab(tab)}
+                className={`${
+                  activeTab === tab
+                    ? "underline underline-offset-4 decoration-red-600"
+                    : ""
+                } capitalize cursor-pointer`}
+              >
+                {tab}
+              </a>
+            ))}
+            <a href={resume} download className="capitalize">
+              Download Resume
+            </a>
+          </div>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-slate-800 text-white flex flex-col items-center gap-4 py-4 text-lg font-medium animate-fadeInDown">
+            {["home", "about", "contact"].map((tab) => (
+              <a
+                key={tab}
+                href={tab !== "contact" ? `#${tab}` : undefined}
+                onClick={() => handleActiveTab(tab)}
+                className={`${
+                  activeTab === tab
+                    ? "underline underline-offset-4 decoration-red-600"
+                    : ""
+                } capitalize cursor-pointer`}
+              >
+                {tab}
+              </a>
+            ))}
+            <a href={resume} download>
+              Download Resume
+            </a>
+          </div>
+        )}
       </div>
-      {/* Modal below navbar */}
+
+      {/* Contact Modal */}
       <ContactFormModal
         isOpen={isContactModalOpen}
         onClose={() => {
           setIsContactModalOpen(false);
-          setActiveTab("home"); // Reset active tab when modal closes
+          setActiveTab("home");
         }}
       />
     </>
