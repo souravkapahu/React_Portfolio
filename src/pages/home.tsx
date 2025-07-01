@@ -1,5 +1,6 @@
 import { Card } from "antd";
 import { homeConstant } from "../constant";
+import { useGetProfile } from "../hooks/profile";
 
 const {
   skills,
@@ -8,6 +9,10 @@ const {
 } = homeConstant;
 
 export default function Home(): any {
+  const { data, isLoading, error }: any = useGetProfile();
+
+  const { about } = data?.data
+
   return (
     <div className="font-playfair">
       {/* Hero Section */}
