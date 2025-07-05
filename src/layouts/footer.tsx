@@ -1,11 +1,24 @@
 import { useState } from "react";
 import ContactFormModal from "../components/common/contactForm";
 import { footerConstant } from "../constant";
+import { useGetSocialHandles } from "../hooks/socialHandle";
 
-const { socialLinks } = footerConstant;
+const imageURL = import.meta.env.VITE_IMAGE_BASE_URL;
 
 export default function Footer() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  const storageData = localStorage.getItem("profile");
+  const profileId = storageData ? JSON.parse(storageData)._id : null;
+  const name = storageData ? JSON.parse(storageData).name : null;
+
+  const {
+    data,
+    isLoading,
+    error,
+  } = useGetSocialHandles(profileId);
+
+  const socialLinks = data?.data ?? [];
 
   const handleClick = () => {
     setIsContactModalOpen(true);
@@ -16,7 +29,7 @@ export default function Footer() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
         {/* Personal Info */}
         <div>
-          <h2 className="text-2xl font-bold mb-2">Saurav Kapahu</h2>
+          <h2 className="text-2xl font-bold mb-2">{name}</h2>
           <p className="text-sm text-gray-400">
             Full Stack Developer | Crafting modern web experiences using React,
             TypeScript & Node.js.
@@ -58,7 +71,7 @@ export default function Footer() {
         <div>
           <h3 className="text-xl font-semibold mb-3">Connect</h3>
           <div className="flex gap-4">
-            {socialLinks.map(({ link, icon }, idx) => (
+            {socialLinks.map(({ link, icon }: any, idx: any) => (
               <a
                 key={idx}
                 href={link}
@@ -67,7 +80,8 @@ export default function Footer() {
                 className="hover:scale-110 transition-transform hover:-translate-y-1"
               >
                 <img
-                  src={icon}
+                  crossOrigin="anonymous"
+                  src={`${imageURL}/${icon}`}
                   className="w-6 h-6 md:w-7 md:h-7"
                   alt="social-icon"
                 />
