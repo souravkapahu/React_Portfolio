@@ -94,8 +94,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
     const isValid = Object.values(newErrors).every((e) => !e);
     if (!isValid) return;
 
-    toast.success("Message sent successfully!");
-    console.log("Form submitted:", form);
+    toast.success("Thanks for reaching out! We'll get back to you shortly.");
     handleClose();
   };
 
@@ -116,7 +115,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
         </button>
 
         <h2 className="text-3xl font-bold mb-6 text-center text-slate-800">
-          Contact Us
+          Let's Connect
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -129,11 +128,10 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
                 value={form.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={`text-sm sm:text-base px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 ${
-                  errors.name && touched.name
-                    ? "border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:ring-slate-800"
-                }`}
+                className={`text-sm sm:text-base px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 ${errors.name && touched.name
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-300 focus:ring-slate-800"
+                  }`}
               />
               {errors.name && touched.name && (
                 <p className="text-red-500 text-sm mt-1 animate-fadeIn">
@@ -150,11 +148,10 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
                 value={form.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={`text-sm sm:text-base px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 ${
-                  errors.email && touched.email
-                    ? "border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:ring-slate-800"
-                }`}
+                className={`text-sm sm:text-base px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 ${errors.email && touched.email
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-300 focus:ring-slate-800"
+                  }`}
               />
               {errors.email && touched.email && (
                 <p className="text-red-500 text-sm mt-1 animate-fadeIn">
@@ -172,11 +169,10 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
               onChange={handleChange}
               onBlur={handleBlur}
               rows={4}
-              className={`text-sm sm:text-base w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                errors.message && touched.message
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:ring-slate-800"
-              }`}
+              className={`text-sm sm:text-base w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${errors.message && touched.message
+                ? "border-red-500 focus:ring-red-500"
+                : "border-gray-300 focus:ring-slate-800"
+                }`}
             />
             {errors.message && touched.message && (
               <p className="text-red-500 text-sm mt-1 animate-fadeIn">
