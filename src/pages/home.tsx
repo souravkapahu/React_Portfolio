@@ -132,7 +132,7 @@ export default function Home() {
                     <span className="text-red-400 font-semibold">
                         Senior Software Developer
                     </span>
-                    , with years of experience delivering scalable and performant web and
+                    , with 4 years of experience delivering scalable and performant web and
                     mobile applications. I specialize in backend technologies like{" "}
                     <span className="text-red-400">Node.js (Express, NestJS)</span>, and
                     frontend development with{" "}
