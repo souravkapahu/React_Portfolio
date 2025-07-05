@@ -2,6 +2,7 @@ import { useState } from "react";
 import ContactFormModal from "../components/common/contactForm";
 import images from "../assets/index";
 
+const imageURL = import.meta.env.VITE_IMAGE_BASE_URL;
 const { resume } = images;
 
 export default function Header() {
@@ -9,6 +10,7 @@ export default function Header() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const resumeUrl = localStorage.getItem('resume')
   const handleActiveTab = (currentTab: string) => {
     setActiveTab(currentTab);
     setIsMobileMenuOpen(false); // Close menu
@@ -61,16 +63,15 @@ export default function Header() {
                 key={tab}
                 href={tab !== "contact" ? `#${tab}` : undefined}
                 onClick={() => handleActiveTab(tab)}
-                className={`${
-                  activeTab === tab
-                    ? "underline underline-offset-4 decoration-red-600"
-                    : ""
-                } capitalize cursor-pointer`}
+                className={`${activeTab === tab
+                  ? "underline underline-offset-4 decoration-red-600"
+                  : ""
+                  } capitalize cursor-pointer`}
               >
                 {tab}
               </a>
             ))}
-            <a href={resume} download className="capitalize">
+            <a href={`${imageURL}${resumeUrl}`} download className="capitalize">
               Download Resume
             </a>
           </div>
@@ -84,11 +85,10 @@ export default function Header() {
                 key={tab}
                 href={tab !== "contact" ? `#${tab}` : undefined}
                 onClick={() => handleActiveTab(tab)}
-                className={`${
-                  activeTab === tab
-                    ? "underline underline-offset-4 decoration-red-600"
-                    : ""
-                } capitalize cursor-pointer`}
+                className={`${activeTab === tab
+                  ? "underline underline-offset-4 decoration-red-600"
+                  : ""
+                  } capitalize cursor-pointer`}
               >
                 {tab}
               </a>

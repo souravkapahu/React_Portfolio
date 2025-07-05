@@ -18,9 +18,10 @@ export default function Home() {
     } = useGetProfile();
 
     const profile = profileData?.data;
-    const { _id, name, jobTitle, image } = profile || {};
+    const { _id, name, jobTitle, image, resume } = profile || {};
 
     localStorage.setItem("profile", JSON.stringify(profile));
+    localStorage.setItem("resume", resume);
 
     const {
         data: skillsData,

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useContact } from "../../hooks/contact";
 
 interface FormData {
   name: string;
@@ -30,6 +31,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
 
   const [errors, setErrors] = useState<Errors>({});
   const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
+  const { mutate, isSuccess, isError, error } = useContact();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -94,6 +96,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
     const isValid = Object.values(newErrors).every((e) => !e);
     if (!isValid) return;
 
+    mutate(form);
     toast.success("Thanks for reaching out! We'll get back to you shortly.");
     handleClose();
   };
