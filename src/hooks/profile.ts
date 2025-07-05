@@ -4,6 +4,6 @@ import { getProfile } from '../api/users.api';
 export const useGetProfile = () => {
     return useQuery({
         queryKey: ['profile'],
-        queryFn: getProfile,
+        queryFn: () => getProfile(),
     });
 };
