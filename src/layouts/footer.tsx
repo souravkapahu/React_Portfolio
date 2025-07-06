@@ -3,12 +3,11 @@ import ContactFormModal from "../components/common/contactForm";
 import { useGetSocialHandles } from "../hooks/socialHandle";
 import { Alert, Spin } from "antd";
 
-const imageURL = import.meta.env.VITE_IMAGE_BASE_URL;
-
 export default function Footer() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [profileId, setProfileId] = useState<string | null>(null);
   const [name, setName] = useState<string>("");
+  const [profileReady, setProfileReady] = useState(false);
 
   useEffect(() => {
     let retries = 0;
@@ -20,6 +19,7 @@ export default function Footer() {
           if (parsed?._id) {
             setProfileId(parsed._id);
             setName(parsed.name || "Guest");
+            setProfileReady(true);
             clearInterval(interval);
           }
         } catch (err) {
@@ -30,8 +30,10 @@ export default function Footer() {
 
       if (++retries > 20) {
         clearInterval(interval);
+        setProfileReady(true); // allow fallback display
       }
     }, 100);
+
     return () => clearInterval(interval);
   }, []);
 
@@ -44,6 +46,8 @@ export default function Footer() {
   const socialLinks = data?.data ?? [];
 
   const handleClick = () => setIsContactModalOpen(true);
+
+  if (!profileReady) return null;
 
   return (
     <footer className="bg-slate-800 font-playfair text-white px-6 md:px-20 py-12 mt-10">
@@ -103,7 +107,7 @@ export default function Footer() {
                 >
                   <img
                     crossOrigin="anonymous"
-                    src={`${imageURL}/${icon}`}
+                    src={icon}
                     className="w-6 h-6 md:w-7 md:h-7"
                     alt="social-icon"
                   />

@@ -4,7 +4,6 @@ import { useGetProfile } from "../hooks/profile";
 import { useGetSkills } from "../hooks/skill";
 import { useGetProjects } from "../hooks/project";
 
-const imageURL = import.meta.env.VITE_IMAGE_BASE_URL;
 
 const {
     images: { tagCode },
@@ -83,7 +82,7 @@ export default function Home() {
                             >
                                 <img
                                     crossOrigin="anonymous"
-                                    src={`${imageURL}/${icon}`}
+                                    src={icon}
                                     alt={name}
                                     className="w-5 h-5"
                                 />
@@ -96,7 +95,7 @@ export default function Home() {
                 <div className="flex justify-center md:justify-end mt-10 md:mt-0">
                     <img
                         crossOrigin="anonymous"
-                        src={`${imageURL}/${image}`}
+                        src={image}
                         alt="Profile"
                         className="w-52 h-52 md:w-72 md:h-72 rounded-full object-cover shadow-xl border-4 border-slate-700"
                     />
@@ -179,7 +178,7 @@ export default function Home() {
                                     <div className="flex justify-center w-full">
                                         <img
                                             crossOrigin="anonymous"
-                                            src={`${imageURL}/${logo}`}
+                                            src={logo}
                                             alt={title}
                                             className="w-16 h-16 object-contain mb-4 rounded-full"
                                         />
