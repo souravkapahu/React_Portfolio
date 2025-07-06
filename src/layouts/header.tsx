@@ -2,7 +2,6 @@ import { useState } from "react";
 import ContactFormModal from "../components/common/contactForm";
 import images from "../assets/index";
 
-const imageURL = import.meta.env.VITE_IMAGE_BASE_URL;
 const { resume } = images;
 
 export default function Header() {
@@ -71,7 +70,7 @@ export default function Header() {
                 {tab}
               </a>
             ))}
-            <a href={`${imageURL}${resumeUrl}`} download className="capitalize">
+            <a href={`${resumeUrl}`} download className="capitalize">
               Download Resume
             </a>
           </div>
